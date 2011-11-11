@@ -1,0 +1,10 @@
+sw:
+  project_id:
+  token:
+
+aws:
+  access_key:
+  secret_key:
+  bucket:
+
+file_name: simple-worker.png
