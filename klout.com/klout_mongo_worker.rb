@@ -12,12 +12,14 @@ require 'rest-client'
 
 class KloutMongoWorker < SimpleWorker::Base
 
-  merge File.join(File.dirname(__FILE__), "user_klout_mongo_stat.rb")
-  attr_accessor :klout_api_key, :twitter_usernames,
-                :mongo_db_name, :mongo_host, :mongo_port, :mongo_username, :mongo_password
+  merge_gem 'mongoid', '2.0.2'
+
+  merge File.join(File.dirname(__FILE__), 'user_klout_mongo_stat.rb')
+  attr_accessor :klout_api_key, :klout_twitter_names,
+                :mongo_host, :mongo_port, :mongo_db_name, :mongo_username, :mongo_password
 
   def run
-    log "Running Klout MongoWorker"
+    log "Running Klout MongoWorker..."
 
     init_mongohq
 
@@ -28,18 +30,18 @@ class KloutMongoWorker < SimpleWorker::Base
     # One optimization is to send the set of usernames (change param to :users=>twitter_usernames.join(","))
     # and adjust the loop to work on the returned set.
 
-    twitter_usernames.each do |username|
+    @klout_twitter_names.each do |username|
       begin
         # Check if there's a current score already set for today
         if daily_score = UserKloutMongoStat.first(conditions: {username: username, for_date: today})
           log "Existing daily score of #{daily_score.username}: #{daily_score.score}"
         else
           # If a daily score record doesn't exist, call the Klout API and create one
-          response = RestClient.get 'http://api.klout.com/1/klout.json', {:params => {:key => klout_api_key, :users=>username}}
+          response = RestClient.get 'http://api.klout.com/1/klout.json', {:params => {:key => @klout_api_key, :users=>username}}
           parsed = JSON.parse(response)
 
           daily_score = UserKloutMongoStat.new(:username => username, :for_date => today, :score => 0)
-          daily_score.score = parsed["users"][0]["kscore"] if parsed["users"] && parsed["users"][0]
+          daily_score.score = parsed['users'][0]['kscore'] if parsed['users'] && parsed['users'][0]
           daily_score.save
 
           log "New daily score of #{daily_score.username}: #{daily_score.score}"
@@ -51,7 +53,7 @@ class KloutMongoWorker < SimpleWorker::Base
       end
     end
 
-    log "Finishing Klout MongoWorker!"
+    puts "Done processing Klout MongoWorker."
   end
 
   # Configures settings for MongoDB. Values for mongo_host and mongo_port passed in to

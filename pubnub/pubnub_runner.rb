@@ -1,28 +1,47 @@
-# Standard SimpleWorker require
-require "simple_worker"
-# YAML configuration
-require "yaml"
-# 1.9.2 sugar:
-require_relative "pubnub_worker"
+require 'simple_worker'
+require 'yaml'
+require 'date'
 
-# YAML loading
-@y = YAML.load_file("./pubnub.yml")
+require_relative 'pubnub_worker'
+
+config_data = YAML.load_file('../_config.yml')
 
 # SimpleWorker configure
-SimpleWorker.configure do |c|
-  c.access_key = @y['simpleworker_access']
-  c.secret_key = @y['simpleworker_secret']
+SimpleWorker.configure do |config|
+  config.project_id = config_data['sw']['project_id']
+  config.token = config_data['sw']['token']
 end
 
-w = PubNubWorker.new
+secrets = {
+  :publish => config_data['pubnub']['publish'],
+  :subscribe => config_data['pubnub']['subscribe'],
+  :secret => config_data['pubnub']['secret']
+}
+channel = config_data['pubnub']['channel']
+            
+worker = PubNubWorker.new
+worker.secrets = secrets
+worker.channel = channel
+worker.message = config_data['pubnub']['message'] + "  " + Time.now.strftime("%a, %e %b %Y %H:%M:%S %z")
 
-w.secrets = {
-              :pubnub_publish => @y['pubnub_publish'],
-              :pubnub_subscribe => @y['pubnub_subscribe'],
-              :pubnub_secret => @y['pubnub_secret']
-            }
+#worker.run_local
+worker.queue
+status = worker.wait_until_complete
+puts worker.get_log
 
-w.channel = @y['pubnub_channel']
-w.message = @y['message']
 
-w.queue
+# Print out the messages
+begin
+  pubnub = Pubnub.new(secrets[:publish], secrets[:subscribe], secrets[:secret], true)
+  messages = pubnub.history ({
+    'channel' => channel,
+    'limit'   => 10
+    })
+  puts messages
+rescue => ex
+  puts "Exception: #{ex.message}"
+  raise ex
+end
+
+
+

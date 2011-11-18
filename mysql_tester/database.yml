@@ -1,9 +1,0 @@
-database:
-  host:  
-  port: 
-  username: 
-  password: 
-  database: 
-sw:
-  api: 
-  secret: 

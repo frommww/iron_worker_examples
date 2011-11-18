@@ -7,7 +7,7 @@
 # There is a klout.rb gem that has some nice methods and error checking but this
 # makes the API call directly so you can see the formats.
 #
-# A set of usernames can be obtained by changing the API param to :users=>twitter_usernames.join(",")
+# A set of usernames can be obtained by changing the API param to :users=>twitter_names.join(',')
 # Of course, you'd want to take out or modify the twitter_usernames do loop.
 #
 #++
@@ -19,20 +19,18 @@ require 'rest-client'
 
 class KloutHelloWorker < SimpleWorker::Base
 
-  attr_accessor :klout_api_key, :twitter_usernames
+  attr_accessor :klout_api_key, :klout_twitter_names
 
   def run
-    log "Running Klout HelloWorker"
+    log "\nRunning Klout HelloWorker..."
 
-    twitter_usernames.each do |username|
+    @klout_twitter_names.each do |username|
       begin
-        log "Processing username #{username}"
-
         # Call the Klout API
-        response = RestClient.get 'http://api.klout.com/1/klout.json', {:params => {:key => klout_api_key, :users=>username}}
+        response = RestClient.get 'http://api.klout.com/1/klout.json', {:params => {:key => @klout_api_key, :users=>username}}
         parsed = JSON.parse(response)
 
-        daily_score = parsed["users"][0]["kscore"] if parsed["users"] && parsed["users"][0]
+        daily_score = parsed['users'][0]['kscore'] if parsed['users'] && parsed['users'][0]
 
         log "Processing: #{username}  Score: #{daily_score}"
 
@@ -41,7 +39,7 @@ class KloutHelloWorker < SimpleWorker::Base
       end
     end
 
-    log "Done with Klout HelloWorker!"
+    puts "Done processing Klout HelloWorker.\n\n"
   end
 
 end

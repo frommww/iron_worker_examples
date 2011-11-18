@@ -11,7 +11,7 @@ class Song
       begin
         self.create({:title => song[:title], :artist => song[:artist], :like => song[:like]})
       rescue => ex
-        puts "owie!"
+        puts "Exception!"
         puts
         # raised below: puts ex.message
         raise ex

@@ -24,11 +24,20 @@ def status_for(ob)
 end
 
 # Create a project at SimpleWorker.com and enter your credentials below
+# Configuration method of v2 of SimpleWorker gem
+# See the Projects tab for PROJECT_ID and Accounts/API Tokens tab for TOKEN
 #-------------------------------------------------------------------------
 SimpleWorker.configure do |config|
-  config.access_key = 'SIMPLEWORKER_ACCESS_KEY'
-  config.secret_key = 'SIMPLEWORKER_SECRET_KEY'
+  config.project_id = 'SIMPLEWORKER_PROJECT_ID'
+  config.token = 'SIMPLEWORKER_TOKEN'
 end
+
+# Configuration for v1 of SimpleWorker gem
+#-------------------------------------------------------------------------
+#SimpleWorker.configure do |config|
+#  config.access_key = 'SIMPLEWORKER_ACCESS_KEY'
+#  config.secret_key = 'SIMPLEWORKER_SECRET_KEY'
+#end
 #-------------------------------------------------------------------------
 
 # queue already uploaded worker with an arbitrary parameter

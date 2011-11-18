@@ -1,6 +1,8 @@
+require 'simple_worker'
+
 class TwitterWorker < SimpleWorker::Base
  
-  attr_accessor :message, :twitter_config
+  attr_accessor :twitter_config, :message
 
   merge_gem "twitter"
 

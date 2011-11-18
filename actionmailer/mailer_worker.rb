@@ -1,7 +1,12 @@
+require 'simple_worker'
+
 class MailerWorker < SimpleWorker::Base
-  attr_accessor :gmail_user_name,:gmail_password,:send_to
+
   merge_gem 'actionmailer',:require=>'action_mailer'
   merge_mailer 'mailer', {:path_to_templates=>"mailer"}
+
+  attr_accessor :gmail_user_name,:gmail_password,:email_send_to
+  
   def run
     ActionMailer::Base.smtp_settings={
         :address => "smtp.gmail.com",
@@ -11,6 +16,6 @@ class MailerWorker < SimpleWorker::Base
         :password => gmail_password,
         :authentication => 'plain',
         :enable_starttls_auto => true}
-    Mailer.test_email(send_to).deliver!
+    Mailer.test_email(email_send_to).deliver!
   end
 end
