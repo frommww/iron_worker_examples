@@ -6,36 +6,41 @@
 # stored into a SimpleDB domain (using SimpleRecord).  An example of this would be to
 # go through your entire user base on a nightly basis, get the Klout score, and store it
 # back into your own database.
-#
-# This example can be modified and optimized as you see fit.
 # 
 #++
 
 require 'simple_worker'
-require 'simple_record'
 require 'json'
 require 'open-uri'
 require 'rest-client'
 
 class KloutSimpleDBWorker < SimpleWorker::Base
 
-  merge File.join(File.dirname(__FILE__), "user_klout_stat.rb")
-  attr_accessor :klout_api_key, :twitter_usernames,
-                :aws_access_key, :aws_secret_key, :sdb_prefix
+  merge_gem 'simple_record'
+  
+  # The model needs to be merged when running outside of Rails
+  # Within Rails, models are merged automatically.
+  #
+  #merge File.join(File.dirname(__FILE__), 'user_klout_stat.rb')
+  merge ('./user_klout_stat.rb')
+  
+  attr_accessor :klout_api_key, :klout_twitter_names,
+                :aws_access_key, :aws_secret_key, :aws_sdb_domain_prefix
 
   def run
-    log "Running Klout SimpleDBWorker"
+    log "Running Klout SimpleDBWorker..."
 
     init_simpledb
 
     # We only want to store the Klout for each user once per day - so this allows us to check
     today = Time.now.utc.at_beginning_of_day
 
+    log "Updating Klout scores SimpleDBWorker..."
     # Iterate through the usernames passed into the worker from the runner (or your app)
-    twitter_usernames.each do |username|
+    @klout_twitter_names.each do |username|
       begin
         # Call the Klout API
-        response = RestClient.get 'http://api.klout.com/1/klout.json', {:params => {:key => klout_api_key, :users=>username}}
+        response = RestClient.get 'http://api.klout.com/1/klout.json', {:params => {:key => @klout_api_key, :users=>username}}
         parsed = JSON.parse(response)
 
         # Check if there's a current score already set for today
@@ -53,16 +58,23 @@ class KloutSimpleDBWorker < SimpleWorker::Base
         log "EXCEPTION #{ex.inspect}"
       end
     end
+    log "Finished updating Klout scores in SimpleDB."
+
+    log "\nLogging Simple_Db records..."
+    sdb_usernames = UserKloutStat.find(:all, :order=>"username", :limit=>50)
+    sdb_usernames.each do |username|
+      log "Twitter name  #{username.username}: #{username.score}   for date: " + username.for_date.strftime("%a %b %d, %Y")
+    end
 
     UserKloutStat.close_connection
-
-    log "Finishing Klout SimpleDBWorker!"
+    log "Finished processing Klout SimpleDBWorker."
+    
   end
 
   # Establish connection to SimpleDB
   def init_simpledb
-    SimpleRecord.establish_connection(aws_access_key, aws_secret_key, :connection_mode=>:per_thread)
-    SimpleRecord::Base.set_domain_prefix("sample_worker_dev_")
+    SimpleRecord.establish_connection(@aws_access_key, @aws_secret_key, :connection_mode=>:per_thread)
+    SimpleRecord::Base.set_domain_prefix(@aws_sdb_domain_prefix)
   end
 
 end

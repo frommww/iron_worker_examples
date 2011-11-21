@@ -1,15 +1,17 @@
-require "simple_worker"
-require "yaml"
-require "./mysql_test_worker"
+require 'simple_worker'
+require 'yaml'
 
-@y = YAML.load_file("./database.yml")
+require_relative 'mysql_test_worker'
 
-SimpleWorker.configure{|c| c.access_key = @y["sw"]["api"]; c.secret_key = @y["sw"]["secret"]}
+config_data = YAML.load_file('../_config.yml')
 
-@w = MySQLTestWorker.new 
+SimpleWorker.configure do |config|
+  config.project_id = config_data['sw']['project_id']
+  config.token = config_data['sw']['token']
+end
 
-@w.db_config = @y["database"]
+worker = MySQLTestWorker.new 
+worker.db_config = config_data['mysql']
 
-@w.queue(:priority => 2)
-
-#@w.run_local
+#worker.run_local
+worker.queue(:priority => 1)

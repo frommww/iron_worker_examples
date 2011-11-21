@@ -1,32 +1,39 @@
-# All the sauce in one package
-require "simple_worker"
-# Configuration comes from this spring of elixir
-require "yaml"
-# The actual worker, require_relative is 1.9.2 sugar only :(
-require_relative "twilio_worker"
+require 'simple_worker'
+require 'yaml'
+require 'date'
 
-# Standard configure block
-SimpleWorker.configure do |c|
-  c.access_key = @y['simpleworker_access']
-  c.secret_key = @y['simpleworker_secret']
+require_relative 'twilio_sms_worker'
+require_relative 'twilio_stats_worker'
+
+config_data = YAML.load_file('../_config.yml')
+
+SimpleWorker.configure do |config|
+  config.project_id = config_data['sw']['project_id']
+  config.token = config_data['sw']['token']
 end
 
-# Fun starts here
-@y = YAML.load_file('twilio.yml')
+sms_worker = TwilioSMSWorker.new
+sms_worker.sid = config_data['twilio']['sid']
+sms_worker.token = config_data['twilio']['token']
+sms_worker.api_version = config_data['twilio']['api_version']
 
-# Using "w" for a generic variable name
-w = TwilioWorker.new
+# Set the phone number and message
+sms_worker.from = config_data['twilio']['from']
+sms_worker.to = config_data['twilio']['to']
+sms_worker.message = config_data['twilio']['message'] + '  ' + Time.now.strftime('%a, %e %b %Y %H:%M:%S %z')
 
-# Set the secrets in one delicious hash
-w.secrets = { 
-               :twilio_access => @y['twilio_access'],
-               :twilio_secret => @y['twilio_secret'],
-               :twilio_validated => @y['twilio_validated']
-            }
+#sms_worker.run_local
+sms_worker.queue
+status = sms_worker.wait_until_complete
+puts sms_worker.get_log
 
-# Set the victim's phone number
-w.phone = @y['phone_to_victimize'].to_i
-# Set the message
-w.message = @y['message'].to_s
+# Now get some statistics
+stats_worker = TwilioStatsWorker.new
+stats_worker.sid = config_data['twilio']['sid']
+stats_worker.token = config_data['twilio']['token']
+stats_worker.api_version = config_data['twilio']['api_version']
 
-w.run_local
+#stats_worker.run_local
+stats_worker.queue
+#status = stats_worker.wait_until_complete
+#puts stats_worker.get_log
