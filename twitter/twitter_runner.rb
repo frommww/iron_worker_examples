@@ -18,7 +18,7 @@ worker.twitter_config = {
     :oauth_token => config_data['twitter']['oauth_token'],
     :oauth_token_secret => config_data['twitter']['oauth_token_secret']
 }
-worker.message = config_data['twitter']['oauth_token_secret']
+worker.message = config_data['twitter']['message']
 
 worker.queue(:priority => 2)
 

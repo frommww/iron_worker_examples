@@ -1,5 +1,5 @@
 require 'simple_worker'
-
+require 'yaml'
 def wait_for_task(params={})
   tries  = 0
   status = nil
@@ -17,7 +17,7 @@ end
 
 def status_for(ob)
   if ob.is_a?(Hash)
-    SimpleWorker.service.status(ob["task_id"])
+    SimpleWorker.service.status(ob["id"])
   else
     ob.status
   end
@@ -27,9 +27,11 @@ end
 # Configuration method of v2 of SimpleWorker gem
 # See the Projects tab for PROJECT_ID and Accounts/API Tokens tab for TOKEN
 #-------------------------------------------------------------------------
+config_data = YAML.load_file('../_config.yml')
+
 SimpleWorker.configure do |config|
-  config.project_id = 'SIMPLEWORKER_PROJECT_ID'
-  config.token = 'SIMPLEWORKER_TOKEN'
+  config.project_id = config_data["sw"]["project_id"]
+  config.token = config_data["sw"]["token"]
 end
 
 # Configuration for v1 of SimpleWorker gem
@@ -49,4 +51,5 @@ data[:sw_config] = SimpleWorker.config.get_atts_to_send
 #queue worker
 worker_info = SimpleWorker.service.queue('HelloWorker', data,:priority=>2)
 #waiting until comlete
-wait_for_task(worker_info)
+puts worker_info.inspect
+wait_for_task(worker_info["tasks"][0])

@@ -3,7 +3,7 @@ require 'json'
 require 'open-uri'
 require 'rest-client'
 class FaceWorker < SimpleWorker::Base
-  merge_worker File.join(File.dirname(__FILE__), "email_worker.rb"), "EmailWorker"
+  merge_worker File.join("../email_worker/email_worker.rb"), "EmailWorker"
   attr_accessor :images_list, :api_key, :api_secret, :email_username, :email_password, :email_domain, :send_to, :title
 
   def run()

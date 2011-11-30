@@ -22,22 +22,22 @@ def get_images_twitpic(username)
   images_list
 end
 
-SETTINGS = YAML.load_file('../config/face.yaml')
+SETTINGS = YAML.load_file('../_config.yml')
 
 SimpleWorker.configure do |config|
-  config.access_key = SETTINGS["sw_access_key"]
-  config.secret_key = SETTINGS["sw_secret_key"]
+  config.project_id = SETTINGS["sw"]["project_id"]
+  config.token = SETTINGS["sw"]["token"]
 end
 
 load "face_worker.rb"
 tw_username       = "Twilight"
 fw                = FaceWorker.new
 fw.images_list    = get_images_twitpic(tw_username)
-fw.api_key        = SETTINGS["api_key"]
-fw.api_secret     = SETTINGS["api_secret"]
-fw.email_username = SETTINGS["email_username"]
-fw.email_password = SETTINGS["email_password"]
-fw.email_domain   = SETTINGS["email_domain"]
+fw.api_key        = SETTINGS["face"]["api_key"]
+fw.api_secret     = SETTINGS["face"]["api_secret"]
+fw.email_username = SETTINGS["email"]["username"]
+fw.email_password = SETTINGS["email"]["password"]
+fw.email_domain   = SETTINGS["email"]["domain"]
 fw.send_to        = "user@email.com"
 fw.title          = "Twitpic account #{tw_username}"
 fw.queue

@@ -11,7 +11,7 @@ require 'simple_worker'
 
 class MasterWorker < SimpleWorker::Base
 
-  merge_worker "../klout/klout_hello_worker.rb", "KloutHelloWorker"
+  merge_worker "../klout.com/klout_hello_worker.rb", "KloutHelloWorker"
 
   attr_accessor :klout_api_key, :klout_twitter_names
   attr_accessor :slice_num

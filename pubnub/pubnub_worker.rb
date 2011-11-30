@@ -2,9 +2,9 @@ require "simple_worker"
 
 class PubNubWorker < SimpleWorker::Base
 
-  # JSON gem is a dep of Pubnub.rb
+  # JSON gem is a dep of pubnub.rb
   merge_gem "json"
-  merge "./pubnub.rb"
+  merge "pubnub.rb"
 
   attr_accessor :secrets, :channel, :message
 

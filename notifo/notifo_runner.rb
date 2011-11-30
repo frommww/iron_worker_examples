@@ -12,13 +12,13 @@ end
 
 worker = NotifoWorker.new
 worker.service_user = config_data['notifo']['service_user']
-worker.service_key = config_data['notifo']['service_key']
+worker.service_key = config_data['notifo']['service_api']
 worker.task = config_data['notifo']['task'].to_sym
 worker.username = config_data['notifo']['username']
 worker.message = config_data['notifo']['message']
 
-worker.run_local
+#worker.run_local
 
-#worker.queue
+worker.queue
 #worker.wait_until_complete
 #puts worker.log

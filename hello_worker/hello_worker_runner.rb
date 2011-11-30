@@ -1,3 +1,4 @@
+require 'yaml'
 require 'simple_worker'
 require_relative "hello_worker.rb"
 
@@ -5,9 +6,11 @@ require_relative "hello_worker.rb"
 # Configuration method of v2 of SimpleWorker gem
 # See the Projects tab for PROJECT_ID and Accounts/API Tokens tab for TOKEN
 #-------------------------------------------------------------------------
+config_data = YAML.load_file('../_config.yml')
+
 SimpleWorker.configure do |config|
-  config.project_id = 'SIMPLEWORKER_PROJECT_ID'
-  config.token = 'SIMPLEWORKER_TOKEN'
+  config.project_id = config_data["sw"]["project_id"]
+  config.token = config_data["sw"]["token"]
 end
 
 # Configuration for v1 of SimpleWorker gem

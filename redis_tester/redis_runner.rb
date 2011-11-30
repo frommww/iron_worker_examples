@@ -13,9 +13,9 @@ end
 worker = RedisWorker.new
 worker.redis_connection = config_data['redis_uri']
 
-worker.run_local
+#worker.run_local
 
-#worker.queue
+worker.queue
 #worker.wait_until_complete
 #puts worker.log
 

@@ -4,7 +4,7 @@ require 'open-uri'
 require 'rest-client'
 require 'rss'
 class SpyWorker < SimpleWorker::Base
-  merge_worker File.join(File.dirname(__FILE__), "email_worker.rb"), "EmailWorker"
+  merge_worker File.join("../email_worker/email_worker.rb"), "EmailWorker"
   attr_accessor :rss_feed, :api_key, :api_secret, :email_username, :email_password, :email_domain, :send_to, :title, :last_date
 
   def get_new_images()
@@ -21,10 +21,11 @@ class SpyWorker < SimpleWorker::Base
   end
 
   def run()
+    require 'active_support/core_ext'
     msg         = "New Face found!\n"
     found       =false
     images_list = get_new_images()
-    log "IMAGES LIST#{images_list.count.to_s}"
+    log "IMAGES LIST#{images_list.inspect}"
     images_list.each_index do |image_index|
       begin
         response = RestClient.get 'http://api.face.com/faces/detect.format', {:params => {:api_key => api_key, :api_secret => api_secret, :urls=>images_list[image_index]}}

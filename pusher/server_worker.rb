@@ -9,6 +9,7 @@ class ServerWorker < SimpleWorker::Base
   merge_gem 'pusher'
 
   def run()
+    log "#{@app_id}--#{@api_key}"
     Pusher.app_id = @app_id
     Pusher.key = @api_key
     Pusher.secret = @api_secret

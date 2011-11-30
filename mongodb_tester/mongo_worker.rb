@@ -6,7 +6,7 @@ class MongoWorker < SimpleWorker::Base
 
   attr_accessor :mongo_host, :mongo_port, :mongo_db_name, :mongo_username, :mongo_password
 
-  merge_gem 'mongoid', '2.0.2'
+  merge_gem 'mongoid'
   merge 'person'
 
   def run

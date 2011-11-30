@@ -12,7 +12,7 @@ require 'rest-client'
 
 class KloutMongoWorker < SimpleWorker::Base
 
-  merge_gem 'mongoid', '2.0.2'
+  merge_gem 'mongoid'
 
   merge File.join(File.dirname(__FILE__), 'user_klout_mongo_stat.rb')
   attr_accessor :klout_api_key, :klout_twitter_names,

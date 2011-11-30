@@ -8,7 +8,7 @@ class MongoToIndextankWorker < SimpleWorker::Base
 
   merge_gem 'faraday-stack', :require=>'faraday_stack'
   merge_gem 'indextank'
-  merge_gem 'mongoid', '2.0.2'
+  merge_gem 'mongoid'
   
   merge 'person'
 

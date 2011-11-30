@@ -17,8 +17,8 @@ worker_ids = num_clients.times.map{ 0+Random.rand(999) }.sort
 #running clients
 num_clients.times {|i|
   cw = ClientWorker.new
-  cw.api_key = config_data["pusher"]["api_key"]
-  cw.api_secret = config_data["pusher"]["secret_key"]
+  cw.api_key = config_data["pusher"]["key"]
+  cw.api_secret = config_data["pusher"]["secret"]
   cw.worker_id = worker_ids[i]
 
   cw.queue(:timeout=>60)
@@ -33,8 +33,8 @@ num_clients.times {|i|
 
 # running killer
 sw = ServerWorker.new
-sw.api_key = config_data["pusher"]["api_key"]
-sw.api_secret = config_data["pusher"]["secret_key"]
+sw.api_key = config_data["pusher"]["key"]
+sw.api_secret = config_data["pusher"]["secret"]
 sw.app_id = config_data["pusher"]["app_id"]
 sw.worker_ids = worker_ids
 sw.queue

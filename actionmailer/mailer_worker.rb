@@ -2,7 +2,7 @@ require 'simple_worker'
 
 class MailerWorker < SimpleWorker::Base
 
-  merge_gem 'actionmailer',:require=>'action_mailer'
+  merge_gem 'actionmailer',{:require=>'action_mailer',:version=>'3.0.9'}
   merge_mailer 'mailer', {:path_to_templates=>"mailer"}
 
   attr_accessor :gmail_user_name,:gmail_password,:email_send_to
