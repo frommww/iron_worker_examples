@@ -1,8 +1,8 @@
-This is a repository of sample workers to be used on [SimpleWorker](http://www.simpleworker.com).
+This is a repository of sample workers to be used on [IronWorker](http://www.iron.io).
 
 Feel free to copy, steal, take credit for, or whatever you feel like doing with this code. ;)
 
-Most of these make you of the _config.yml file for the SimpleWorker project_id/token as well
+Most of these make use of the \_config.yml file for the IronWorker project_idtoken as well
 as for the config keys and settings for the examples. Modify this file with your keys 
 (or hardwire them into the example).
 
