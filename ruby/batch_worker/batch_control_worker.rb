@@ -3,9 +3,9 @@
 #
 # This assumes you are using ActiveRecord or SimpleRecord and you have a User model.
 
-require 'simple_worker'
+require 'iron_worker'
 
-class BatchWorker < SimpleWorker::Base
+class BatchWorker < IronWorker::Base
 
   merge_worker "something_with_user_worker", "SomethingWithUserWorker"
 

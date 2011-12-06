@@ -1,6 +1,6 @@
-require "simple_worker"
+require "iron_worker"
 
-class NotifoWorker < SimpleWorker::Base
+class NotifoWorker < IronWorker::Base
 
   merge_gem "notifo"
 
@@ -9,7 +9,7 @@ class NotifoWorker < SimpleWorker::Base
   # These are dynamic, and will be different for each task
   attr_accessor :username, :message, :task
 
-  # The SimpleWorker environment will invoke and run this def:
+  # The IronWorker environment will invoke and run this def:
   def run
     begin
       log "connecting..."

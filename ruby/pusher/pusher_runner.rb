@@ -1,4 +1,4 @@
-require 'simple_worker'
+require 'iron_worker'
 require 'yaml'
 
 load "server_worker.rb"
@@ -6,7 +6,7 @@ load "client_worker.rb"
 
 config_data = YAML.load_file('../_config.yml')
 
-SimpleWorker.configure do |config|
+IronWorker.configure do |config|
   config.project_id = config_data['sw']['project_id']
   config.token = config_data['sw']['token']
 end

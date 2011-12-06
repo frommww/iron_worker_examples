@@ -1,6 +1,6 @@
-require "simple_worker"
+require "iron_worker"
 
-class SimpleDBTestWorker < SimpleWorker::Base
+class SimpleDBTestWorker < IronWorker::Base
 
   attr_accessor :aws_access, :aws_secret
 

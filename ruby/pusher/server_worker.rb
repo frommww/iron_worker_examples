@@ -1,7 +1,7 @@
-require 'simple_worker'
+require 'iron_worker'
 require 'json'
 
-class ServerWorker < SimpleWorker::Base
+class ServerWorker < IronWorker::Base
 
   attr_accessor :worker_ids, :api_key, :api_secret, :app_id
 

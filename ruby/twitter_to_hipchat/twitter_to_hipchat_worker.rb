@@ -1,8 +1,8 @@
-require 'simple_worker'
+require 'iron_worker'
 require 'rest-client'
 require 'active_support/core_ext'
 
-class TwitterToHipchatWorker < SimpleWorker::Base
+class TwitterToHipchatWorker < IronWorker::Base
   
   merge_gem 'hipchat-api'
 
@@ -23,7 +23,7 @@ class TwitterToHipchatWorker < SimpleWorker::Base
       client = HipChat::API.new(hipchat_api_key)
       notify_users = false
       log "posting to hipchat: "
-      log client.rooms_message(hipchat_room_name, 'SimpleWorker', "@#{r['from_user']} tweeted: #{r['text']}", notify_users).body
+      log client.rooms_message(hipchat_room_name, 'IronWorker', "@#{r['from_user']} tweeted: #{r['text']}", notify_users).body
       break if i >= 5
     end
 

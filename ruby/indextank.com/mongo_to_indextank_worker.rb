@@ -2,9 +2,9 @@
 # Sample worker that connects to MongoDB and iterates through a Mongo collection
 # and puts all of the items into IndexTank for full text awesomeness searching.
 
-require 'simple_worker'
+require 'iron_worker'
 
-class MongoToIndextankWorker < SimpleWorker::Base
+class MongoToIndextankWorker < IronWorker::Base
 
   merge_gem 'faraday-stack', :require=>'faraday_stack'
   merge_gem 'indextank'

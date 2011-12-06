@@ -5,7 +5,7 @@ require_relative 'carrierwave_worker'
 
 conf = YAML.load_file 'carrierwave.yml'
 
-SimpleWorker.configure do |config|
+IronWorker.configure do |config|
   config.project_id = conf['sw']['project_id']
   config.token = conf['sw']['token']
 end

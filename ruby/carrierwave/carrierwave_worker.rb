@@ -1,7 +1,7 @@
-require 'simple_worker'
+require 'iron_worker'
 
-class CarrierWaveWorker < SimpleWorker::Base
-  require 'RMagick' # it's available at SimpleWorker servers
+class CarrierWaveWorker < IronWorker::Base
+  require 'RMagick' # it's available at IronWorker servers
 
   merge_gem 'carrierwave'
                     # if you need ActiveRecord support, use following line instead

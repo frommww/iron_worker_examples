@@ -1,7 +1,7 @@
-require "simple_worker"
+require "iron_worker"
 require "uri"
 
-class RedisWorker < SimpleWorker::Base
+class RedisWorker < IronWorker::Base
 
   merge_gem "redis"
 

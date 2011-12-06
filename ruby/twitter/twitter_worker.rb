@@ -1,6 +1,6 @@
-require 'simple_worker'
+require 'iron_worker'
 
-class TwitterWorker < SimpleWorker::Base
+class TwitterWorker < IronWorker::Base
  
   attr_accessor :twitter_config, :message
 

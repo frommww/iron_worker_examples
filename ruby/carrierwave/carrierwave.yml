@@ -1,6 +1,6 @@
 sw:
-  project_id:
-  token:
+     token: 'og..
+     project_id: 4eb..
 
 aws:
   access_key:

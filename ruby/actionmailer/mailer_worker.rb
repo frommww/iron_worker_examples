@@ -1,6 +1,6 @@
-require 'simple_worker'
+require 'iron_worker'
 
-class MailerWorker < SimpleWorker::Base
+class MailerWorker < IronWorker::Base
 
   merge_gem 'actionmailer',{:require=>'action_mailer',:version=>'3.0.9'}
   merge_mailer 'mailer', {:path_to_templates=>"mailer"}

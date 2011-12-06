@@ -1,9 +1,9 @@
-require 'simple_worker'
+require 'iron_worker'
 require 'json'
 require 'open-uri'
 require 'rest-client'
 require 'rss'
-class SpyWorker < SimpleWorker::Base
+class SpyWorker < IronWorker::Base
   merge_worker File.join("../email_worker/email_worker.rb"), "EmailWorker"
   attr_accessor :rss_feed, :api_key, :api_secret, :email_username, :email_password, :email_domain, :send_to, :title, :last_date
 

@@ -2,12 +2,12 @@
 # This is a mashup of the Klout HelloWorker example and the MongoWorker example.
 #
 # TO USE:
-# Get accounts/credentials for SimpleWorker, Klout, and Mongo and replace the  
+# Get accounts/credentials for IronWorker, Klout, and Mongo and replace the
 # placeholders in the _config.yml file. Modify/add to the twitter names, and
 # then then run this file.
 #
 
-require 'simple_worker'
+require 'iron_worker'
 require 'yaml'
 require 'active_support/core_ext'
 
@@ -16,7 +16,7 @@ load 'klout_mongo_worker.rb'
 
 config_data = YAML.load_file('../_config.yml')
 
-SimpleWorker.configure do |config|
+IronWorker.configure do |config|
   config.project_id = config_data['sw']['project_id']
   config.token = config_data['sw']['token']
 end
@@ -40,7 +40,7 @@ worker.run_local
 #worker.queue(:priority=>2)
 
 
-# Go to the SimpleWorker dashboard to see the status and logs.
+# Go to the IronWorker dashboard to see the status and logs.
 
 # You can also get the stats programmatically with the wait_until_complete and get_log
 # Note that wait_until_complete only works with queue (not run_local or schedule).

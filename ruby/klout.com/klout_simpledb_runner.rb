@@ -1,7 +1,7 @@
 
 # Same as the MongoDB one but uses SimpleDB instead
 
-require 'simple_worker'
+require 'iron_worker'
 require 'yaml'
 require 'active_support/core_ext'
 
@@ -10,7 +10,7 @@ load "klout_simpledb_worker.rb"
 
 config_data = YAML.load_file('../_config.yml')
 
-SimpleWorker.configure do |config|
+IronWorker.configure do |config|
   config.project_id = config_data["sw"]["project_id"]
   config.token = config_data["sw"]["token"]
 end
@@ -32,7 +32,7 @@ worker.queue
 #worker.queue(:priority=>2)
 
 
-# Go to the SimpleWorker dashboard to see the status and logs.
+# Go to the IronWorker dashboard to see the status and logs.
 
 # You can also get the stats programmatically with the wait_until_complete and get_log
 # Note that wait_until_complete only works with queue (not run_local or schedule).

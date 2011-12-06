@@ -1,6 +1,6 @@
-require 'simple_worker'
+require 'iron_worker'
 
-class TwilioSMSWorker < SimpleWorker::Base
+class TwilioSMSWorker < IronWorker::Base
 
   # Merge 'jwt' in because of twilio-ruby dependency.
   merge_gem 'jwt'

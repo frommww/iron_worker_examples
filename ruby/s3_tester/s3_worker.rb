@@ -1,7 +1,7 @@
-require 'simple_worker'
+require 'iron_worker'
 require 'open-uri'
 
-class S3Worker < SimpleWorker::Base
+class S3Worker < IronWorker::Base
 
   merge_gem 'aws'
 
@@ -15,7 +15,7 @@ class S3Worker < SimpleWorker::Base
     log "#{user_files}"
 
     if is_remote?
-      log "\nDownloading file to local worker disk storage in SimpleWorker..."
+      log "\nDownloading file to local worker disk storage in IronWorker..."
     else
       log "\nDownloading file to local disk storage..."
     end

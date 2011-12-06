@@ -1,23 +1,23 @@
 require 'yaml'
-require 'simple_worker'
+require 'iron_worker'
 require_relative "hello_worker.rb"
 
-# Create a project at SimpleWorker.com and enter your credentials below
-# Configuration method of v2 of SimpleWorker gem
+# Create a project at IronWorker.com and enter your credentials below
+# Configuration method of v2 of IronWorker gem
 # See the Projects tab for PROJECT_ID and Accounts/API Tokens tab for TOKEN
 #-------------------------------------------------------------------------
 config_data = YAML.load_file('../_config.yml')
 
-SimpleWorker.configure do |config|
+IronWorker.configure do |config|
   config.project_id = config_data["sw"]["project_id"]
   config.token = config_data["sw"]["token"]
 end
 
-# Configuration for v1 of SimpleWorker gem
+# Configuration for v1 of IronWorker gem
 #-------------------------------------------------------------------------
-#SimpleWorker.configure do |config|
-#  config.access_key = 'SIMPLEWORKER_ACCESS_KEY'
-#  config.secret_key = 'SIMPLEWORKER_SECRET_KEY'
+#IronWorker.configure do |config|
+#  config.access_key = 'IRONWORKER_ACCESS_KEY'
+#  config.secret_key = 'IRONWORKER_SECRET_KEY'
 #end
 #-------------------------------------------------------------------------
 
@@ -41,8 +41,8 @@ worker3.some_param = "I should be scheduled to run at a later time."
 worker3.schedule(:start_at => 3.minutes.since, :run_every => 60, :run_times => 5)
 
 # That's it. Easy to use but lots of power to run 10/100/1000s of tasks
-puts "\nCongratulations you've just queued and scheduled workers in the SimpleWorker cloud!\n\n"
-puts "Now go to SimpleWorker.com to view all your jobs running!\n\n"
+puts "\nCongratulations you've just queued and scheduled workers in the IronWorker cloud!\n\n"
+puts "Now go to IronWorker.com to view all your jobs running!\n\n"
 
 
 # You can even run the worker locally if you want.

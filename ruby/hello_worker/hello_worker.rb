@@ -1,22 +1,22 @@
 #--
 # Copyright (c) 2011 Chad Arimura
-# Developed for SimpleWorker.com
+# Developed for IronWorker.com
 #
 # HelloWorker is a very basic worker intended to show how easy it is to queue and run a worker.
-# There are no dependencies aside from a SimpleWorker.com account.
+# There are no dependencies aside from a IronWorker.com account.
 #
-# 1. Enter your SimpleWorker credentials into hello_worker_runner.rb
+# 1. Enter your IronWorker credentials into hello_worker_runner.rb
 # 2. Type 'ruby hello_worker_runner.rb'
 #
 #
-# THESE EXAMPLES ARE INTENDED AS LEARNING AIDS FOR BUILDING WORKERS TO BE USED AT SIMPLEWORKER.COM.
+# THESE EXAMPLES ARE INTENDED AS LEARNING AIDS FOR BUILDING WORKERS TO BE USED AT IRONWORKER.COM.
 # THEY CAN BE USED IN YOUR OWN CODE AND MODIFIED AS YOU SEE FIT.
 #
 #++
 
-require 'simple_worker'
+require 'iron_worker'
 
-class HelloWorker < SimpleWorker::Base
+class HelloWorker < IronWorker::Base
 
   attr_accessor :some_param
 

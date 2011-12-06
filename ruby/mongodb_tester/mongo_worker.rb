@@ -1,8 +1,8 @@
 # Sample worker that connects to MongoDB and performs some operations.
 
-require 'simple_worker'
+require 'iron_worker'
 
-class MongoWorker < SimpleWorker::Base
+class MongoWorker < IronWorker::Base
 
   attr_accessor :mongo_host, :mongo_port, :mongo_db_name, :mongo_username, :mongo_password
 

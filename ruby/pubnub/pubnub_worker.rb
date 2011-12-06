@@ -1,6 +1,6 @@
-require "simple_worker"
+require "iron_worker"
 
-class PubNubWorker < SimpleWorker::Base
+class PubNubWorker < IronWorker::Base
 
   # JSON gem is a dep of pubnub.rb
   merge_gem "json"

@@ -1,7 +1,7 @@
-require 'simple_worker'
+require 'iron_worker'
 require 'rubygems'
 
-class GetExceptionalWorker< SimpleWorker::Base
+class GetExceptionalWorker< IronWorker::Base
 
   attr_accessor :api_key
 

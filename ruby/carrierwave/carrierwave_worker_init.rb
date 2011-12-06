@@ -29,7 +29,7 @@ end
 
 puts "Finished!  Now do the following: \n"
 puts "1. Open up demo.html in your browser"
-puts "2. run 'ruby carrierwave_worker_runner.rb'.  This will upload and queue your worker into the SimpleWorker platform."
+puts "2. run 'ruby carrierwave_worker_runner.rb'.  This will upload and queue your worker into the IronWorker platform."
 puts "3. Visit your jobs list page to see the worker running.  This should only take a few seconds."
 puts "4. Refresh demo.html\n\n\n"
 

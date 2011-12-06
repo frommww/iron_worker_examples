@@ -1,5 +1,5 @@
 #--
-# Copyright (c) 2011 SimpleWorker.com
+# Copyright (c) 2011 IronWorker.com
 # Developer: Roman Kononov
 #
 # KloutSimpleDBWorker is a simple example of how the Klout API can be called from a Worker and the results
@@ -9,12 +9,12 @@
 # 
 #++
 
-require 'simple_worker'
+require 'iron_worker'
 require 'json'
 require 'open-uri'
 require 'rest-client'
 
-class KloutSimpleDBWorker < SimpleWorker::Base
+class KloutSimpleDBWorker < IronWorker::Base
 
   merge_gem 'simple_record'
   

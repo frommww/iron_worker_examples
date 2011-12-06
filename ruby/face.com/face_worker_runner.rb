@@ -1,4 +1,4 @@
-require 'simple_worker'
+require 'iron_worker'
 require 'json'
 require 'open-uri'
 require 'rest-client'
@@ -24,7 +24,7 @@ end
 
 SETTINGS = YAML.load_file('../_config.yml')
 
-SimpleWorker.configure do |config|
+IronWorker.configure do |config|
   config.project_id = SETTINGS["sw"]["project_id"]
   config.token = SETTINGS["sw"]["token"]
 end

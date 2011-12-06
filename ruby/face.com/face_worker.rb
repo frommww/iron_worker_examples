@@ -1,8 +1,8 @@
-require 'simple_worker'
+require 'iron_worker'
 require 'json'
 require 'open-uri'
 require 'rest-client'
-class FaceWorker < SimpleWorker::Base
+class FaceWorker < IronWorker::Base
   merge_worker File.join("../email_worker/email_worker.rb"), "EmailWorker"
   attr_accessor :images_list, :api_key, :api_secret, :email_username, :email_password, :email_domain, :send_to, :title
 
@@ -39,7 +39,7 @@ EOF
     email.email_domain = email_domain
     email.username     = email_username
     email.password     = email_password
-    email.from         = 'system@simpleworker.com'
+    email.from         = 'system@ironworker.com'
     email.to           = to
     email.subject      = "[Face] #{subject}"
     email.body         = body

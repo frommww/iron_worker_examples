@@ -5,14 +5,14 @@
 # Just add or modify the credentials you need for the example you
 # want to run.
 
-# Here's where the SimpleWorker project_id and token(s) go. They should
-# be assigned within the SimpleWorker config block within your application.
+# Here's where the IronWorker project_id and token(s) go. They should
+# be assigned within the IronWorker config block within your application.
 # You can have multiple projects and create multiple tokens.
 
-# SimpleWorker credentials
+# IronWorker credentials
 sw:
-    project_id: 4eba...........
-    token: ogIkJIi..........
+    token: ogIkJ..
+    project_id: 4e..
 
 # AWS credentials
 # For s3, use an existing bucket name or create one in s3 if it doesn't exist.
@@ -74,7 +74,7 @@ indextank:
 
 klout:
     api_key: h9hvvac...
-    twitter_names: ["simpleworker", "chadarimura", "klout", "techcrunch", "monkchips", "aplusk", "sgblank", "venturehacks", "no_user_12345xyz"]
+    twitter_names: ["ironworker", "chadarimura", "klout", "techcrunch", "monkchips", "aplusk", "sgblank", "venturehacks", "no_user_12345xyz"]
 
 face:
     api_key:

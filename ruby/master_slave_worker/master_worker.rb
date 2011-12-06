@@ -7,9 +7,9 @@
 # for KloutHelloWorker.
 #
 
-require 'simple_worker'
+require 'iron_worker'
 
-class MasterWorker < SimpleWorker::Base
+class MasterWorker < IronWorker::Base
 
   merge_worker "../klout.com/klout_hello_worker.rb", "KloutHelloWorker"
 

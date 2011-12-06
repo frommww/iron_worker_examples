@@ -5,12 +5,12 @@
 #
 #++
 
-require 'simple_worker'
+require 'iron_worker'
 require 'json'
 require 'open-uri'
 require 'rest-client'
 
-class KloutMongoWorker < SimpleWorker::Base
+class KloutMongoWorker < IronWorker::Base
 
   merge_gem 'mongoid'
 

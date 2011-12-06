@@ -1,7 +1,7 @@
-require "simple_worker"
+require "iron_worker"
 require "mysql2"
 
-class MySQLTestWorker < SimpleWorker::Base
+class MySQLTestWorker < IronWorker::Base
 
   merge_gem "sequel"
 

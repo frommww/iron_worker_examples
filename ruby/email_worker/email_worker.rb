@@ -1,9 +1,9 @@
 # Sample worker that sends an email.
 
-require 'simple_worker'
+require 'iron_worker'
 require 'mail'
 
-class EmailWorker < SimpleWorker::Base
+class EmailWorker < IronWorker::Base
 
   attr_accessor :email_domain, :username, :password,
         :to, :from,

@@ -1,5 +1,5 @@
 #--
-# SimpleWorker.com
+# IronWorker.com
 # Developer: Roman Kononov / Ken Fromm
 #
 # Klout_HelloWorker is a simple example of how to connect a worker to the Klout API.
@@ -12,12 +12,12 @@
 #
 #++
 
-require 'simple_worker'
+require 'iron_worker'
 require 'json'
 require 'open-uri'
 require 'rest-client'
 
-class KloutHelloWorker < SimpleWorker::Base
+class KloutHelloWorker < IronWorker::Base
 
   attr_accessor :klout_api_key, :klout_twitter_names
 

@@ -1,8 +1,8 @@
-require 'simple_worker'
+require 'iron_worker'
 require 'date'
 require 'json'
 
-class TwilioStatsWorker < SimpleWorker::Base
+class TwilioStatsWorker < IronWorker::Base
 
   #The unfinished procedures use 'twiliolib.rb'
   #merge File.join(File.dirname(__FILE__), "twiliolib.rb")

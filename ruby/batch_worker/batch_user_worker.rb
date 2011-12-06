@@ -1,6 +1,6 @@
-require 'simple_worker'
+require 'iron_worker'
 
-class SomethingWithUserWorker < SimpleWorker::Base
+class SomethingWithUserWorker < IronWorker::Base
 
   attr_accessor :user_id
 

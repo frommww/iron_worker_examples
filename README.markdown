@@ -12,4 +12,4 @@ make use of the right path in the merge_worker.
 The same goes for any files that might be included with the worker. (You merge these with the
 merge command).
 
-For a Rails example, see: https://github.com/iron-io/simple_worker_rails_example
+For a Rails example, see: https://github.com/iron-io/iron_worker_rails_example
