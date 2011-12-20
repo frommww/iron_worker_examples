@@ -13,9 +13,10 @@ class ServerWorker < IronWorker::Base
     Pusher.app_id = @app_id
     Pusher.key = @api_key
     Pusher.secret = @api_secret
+    Pusher.encrypted = true
 
     @worker_ids.each do |w|
-      log "Terminating #{w}"
+      log "Sending command to terminate worker #{w}..."
       #sending message via pusher
       Pusher['commands_channel'].trigger!('close', {:id=>w})
     end

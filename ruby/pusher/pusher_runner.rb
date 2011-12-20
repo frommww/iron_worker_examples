@@ -38,3 +38,4 @@ sw.api_secret = config_data["pusher"]["secret"]
 sw.app_id = config_data["pusher"]["app_id"]
 sw.worker_ids = worker_ids
 sw.queue
+

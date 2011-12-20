@@ -9,7 +9,9 @@ class ClientWorker < IronWorker::Base
   merge_gem 'pusher-client'
 
   def run()
+    puts "I am worker #{worker_id}"
     options = {:secret => @api_secret}
+    #options[:encrypted] = true
     socket = PusherClient::Socket.new(@api_key, options)
 
     #connect in async way
@@ -31,7 +33,7 @@ class ClientWorker < IronWorker::Base
       sleep(1)
       log "doing hard work"
       if @exit
-        log "Hey i'm terminating"
+        log "Hey i'm terminating, server told me to."
         break
       end
     end
