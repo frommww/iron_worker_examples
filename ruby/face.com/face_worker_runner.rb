@@ -25,8 +25,8 @@ end
 SETTINGS = YAML.load_file('../_config.yml')
 
 IronWorker.configure do |config|
-  config.project_id = SETTINGS["sw"]["project_id"]
-  config.token = SETTINGS["sw"]["token"]
+  config.token = SETTINGS["iw"]["token"]
+  config.project_id = SETTINGS["iw"]["project_id"]
 end
 
 load "face_worker.rb"

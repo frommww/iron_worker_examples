@@ -12,8 +12,8 @@ require_relative 'mongo_worker.rb'
 config_data = YAML.load_file('../_config.yml')
 
 IronWorker.configure do |config|
-  config.project_id = config_data['sw']['project_id']
-  config.token = config_data['sw']['token']
+  config.token = config_data['iw']['token']
+  config.project_id = config_data['iw']['project_id']
 end
 
 mw               = MongoWorker.new

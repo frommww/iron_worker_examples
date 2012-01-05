@@ -1,7 +1,7 @@
 require 'iron_worker'
 require 'yaml'
 
-require_relative 's3_worker'
+require_relative 'image_processor'
 
 config_data = YAML.load_file '../_config.yml'
 
@@ -10,7 +10,7 @@ IronWorker.configure do |config|
   config.project_id = config_data['iw']['project_id']
 end
 
-worker = S3Worker.new
+worker = ImageProcessor.new
 worker.aws_access = config_data['aws']['access_key']
 worker.aws_secret = config_data['aws']['secret_key']
 worker.aws_s3_bucket_name = config_data['aws']['s3_bucket_name']
