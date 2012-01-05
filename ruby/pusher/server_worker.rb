@@ -13,6 +13,7 @@ class ServerWorker < IronWorker::Base
     Pusher.app_id = @app_id
     Pusher.key = @api_key
     Pusher.secret = @api_secret
+    # Pusher.logger.level = Logger::DEBUG
     Pusher.encrypted = true
 
     @worker_ids.each do |w|

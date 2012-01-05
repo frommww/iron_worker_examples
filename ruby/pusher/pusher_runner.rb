@@ -1,8 +1,10 @@
 require 'iron_worker'
 require 'yaml'
 
-load "server_worker.rb"
-load "client_worker.rb"
+IronWorker.logger.level = Logger::DEBUG
+
+require_relative "server_worker.rb"
+require_relative "client_worker.rb"
 
 config_data = YAML.load_file('../_config.yml')
 
@@ -39,3 +41,6 @@ sw.app_id = config_data["pusher"]["app_id"]
 sw.worker_ids = worker_ids
 sw.queue
 
+status = sw.wait_until_complete
+puts "ServerWorker status: " + status.inspect
+puts sw.get_log
