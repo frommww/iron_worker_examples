@@ -2,26 +2,20 @@
 # on your application on a schedule
 
 require 'iron_worker'
-require 'httparty'
-require 'active_record'
+
 
 class CallbackWorker < IronWorker::Base
 
-  attr_accessor :callback_url
+  merge_gem 'httparty'
 
-  #Need to merge the model file if running outside rails
-  #Models are merged automatically within rails
-  merge "../models/user"
+  attr_accessor :callback_url
 
   def run
 
-    @users = User.all
-
-    @users.each do |user|
-      log "posting to #{callback_url}?user_id=#{user.id}"
-      HTTParty.post(hook_url, {:body=>{:user_id=>user.id}})
-    end
-
+    puts "posting to #{callback_url}"
+    resp = HTTParty.post(callback_url, {:body=>{:x=>"y"}})
+    p resp
+    
   end
 
 end
