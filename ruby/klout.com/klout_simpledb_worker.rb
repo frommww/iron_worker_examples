@@ -1,5 +1,5 @@
 #--
-# Copyright (c) 2011 IronWorker.com
+# Copyright (c) 2011 www.iron.io
 # Developer: Roman Kononov
 #
 # KloutSimpleDBWorker is a simple example of how the Klout API can be called from a Worker and the results

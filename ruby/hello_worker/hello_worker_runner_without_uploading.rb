@@ -23,7 +23,7 @@ def status_for(ob)
   end
 end
 
-# Create a project at IronWorker.com and enter your credentials below
+# Create a project at www.iron.io and enter your credentials below
 # Configuration method of v2 of IronWorker gem
 # See the Projects tab for PROJECT_ID and Accounts/API Tokens tab for TOKEN
 #-------------------------------------------------------------------------

@@ -39,7 +39,7 @@ EOF
     email.email_domain = email_domain
     email.username     = email_username
     email.password     = email_password
-    email.from         = 'system@ironworker.com'
+    email.from         = 'system@somewhere.com'
     email.to           = to
     email.subject      = "[Face] #{subject}"
     email.body         = body

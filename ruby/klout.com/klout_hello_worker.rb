@@ -1,5 +1,5 @@
 #--
-# IronWorker.com
+# www.iron.io
 # Developer: Roman Kononov / Ken Fromm
 #
 # Klout_HelloWorker is a simple example of how to connect a worker to the Klout API.
