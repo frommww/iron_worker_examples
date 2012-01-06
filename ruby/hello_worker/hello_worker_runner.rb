@@ -42,7 +42,7 @@ worker3.schedule(:start_at => 3.minutes.since, :run_every => 60, :run_times => 5
 
 # That's it. Easy to use but lots of power to run 10/100/1000s of tasks
 puts "\nCongratulations you've just queued and scheduled workers in the IronWorker cloud!\n\n"
-puts "Now go to IronWorker.com to view all your jobs running!\n\n"
+puts "Now go to http://hud.iron.io to view all your jobs running!\n\n"
 
 
 # You can even run the worker locally if you want.
@@ -52,32 +52,8 @@ puts "Now go to IronWorker.com to view all your jobs running!\n\n"
 #worker4.run_local
 
 
-# Here's how you can check the status from inside your runner if you want to.
-#-----------------------------------------------------------------------------------------------------#
-def self.wait_for_task(params={})
-  tries  = 0
-  status = nil
-  sleep 1
-  while tries < 60
-    status = status_for(params)
-    puts 'status = ' + status.inspect
-    if status["status"] == "complete" || status["status"] == "error"
-      break
-    end
-    sleep 2
-  end
-  status
-end
-
-def self.status_for(ob)
-  if ob.is_a?(Hash)
-    ob[:schedule_id] ? WORKER.schedule_status(ob[:schedule_id]) : WORKER.status(ob[:task_id])
-  else
-    ob.status
-  end
-end
-
 # If you want your runner to check and display the status of your worker, simply uncomment the next 3 lines.
 #puts "\nLet's have the runner (this file) check the status until the workers are complete.\n"
-#status = wait_for_task(worker)
-#status2 = wait_for_task(worker2)
+status = worker.wait_until_complete
+puts "LOG:"
+puts worker.get_log
